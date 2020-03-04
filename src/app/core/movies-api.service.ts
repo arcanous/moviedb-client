@@ -17,4 +17,16 @@ export class MoviesApiService {
   getMovieDetails(movieId: string) {
     return this.http.get(`${environment.apiUrl}/movies/${movieId}`);
   }
+
+  getMovieActors(movieId: string) {
+    return this.http.get(`${environment.apiUrl}/movies/${movieId}/actors`);
+  }
+
+  getMovieDirectors(movieId: string) {
+    return this.http.get(`${environment.apiUrl}/movies/${movieId}/directors`);
+  }
+
+  getMovieWriters(movieId: string) {
+    return this.http.get(`${environment.apiUrl}/movies/${movieId}/writers`);
+  }
 }

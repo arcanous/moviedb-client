@@ -1,11 +1,20 @@
-<h2> {{ (movie$ | async)?.name }} </h2>
+<h2> {{ movie?.details?.name }} </h2>
 
 <h3> Plot </h3>
 <p>
-  {{ (movie$ | async)?.plot }}
+  {{ movie?.details?.plot }}
 </p>
 
 <h3> Year </h3>
 <p>
-  {{ (movie$ | async)?.year }}
+  {{ movie?.details?.year }}
 </p>
+
+<h3> Actors </h3>
+<a class="person" *ngFor="let actor of movie?.actors" [routerLink]="['/actors', actor.id]"> {{ actor.name }} </a>
+
+<h3> Directors </h3>
+<a class="person" *ngFor="let director of movie?.directors" [routerLink]="['/directors', director.id]"> {{ director.name }} </a>
+
+<h3> Writers </h3>
+<a class="person" *ngFor="let writer of movie?.writers" [routerLink]="['/writers', writer.id]"> {{ writer.name }} </a>

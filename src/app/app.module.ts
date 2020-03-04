@@ -38,8 +38,8 @@ import { DirectorsDetailsComponent } from './directors/directors-details/directo
   ],
   imports: [
     BrowserModule,
-    CommonModule,
     HttpClientModule,
+    CommonModule,
     AppRoutingModule,
   ],
   providers: [],
