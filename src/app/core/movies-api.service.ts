@@ -13,4 +13,8 @@ export class MoviesApiService {
   getMovies() {
     return this.http.get(`${environment.apiUrl}/movies`);
   }
+
+  getMovieDetails(movieId: string) {
+    return this.http.get(`${environment.apiUrl}/movies/${movieId}`);
+  }
 }

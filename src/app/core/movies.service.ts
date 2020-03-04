@@ -11,4 +11,8 @@ export class MoviesService {
   getMovies() {
     return this.moviesApiService.getMovies();
   }
+
+  getMovieDetails(movieId: string) {
+    return this.moviesApiService.getMovieDetails(movieId);
+  }
 }

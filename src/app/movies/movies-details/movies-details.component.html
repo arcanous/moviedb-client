@@ -1,1 +1,11 @@
-<p>movies-details works!</p>
+<h2> {{ (movie$ | async)?.name }} </h2>
+
+<h3> Plot </h3>
+<p>
+  {{ (movie$ | async)?.plot }}
+</p>
+
+<h3> Year </h3>
+<p>
+  {{ (movie$ | async)?.year }}
+</p>

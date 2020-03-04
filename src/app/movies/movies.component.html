@@ -1,3 +1,15 @@
 <h1> Movies </h1>
 
-<router-outlet></router-outlet>
+<div class="structure">
+
+  <div class="list">
+    <div *ngFor="let movie of movies$ | async" class="movie">
+      <a [routerLink]="['/movies', movie.id]" routerLinkActive="active"> {{movie.name }} </a>
+    </div>
+
+  </div>
+  <div class="content">
+    <router-outlet></router-outlet>
+
+  </div>
+</div>
