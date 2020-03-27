@@ -1,4 +1,4 @@
-import { MoviesService } from './../../core/movies.service';
+import { MoviesService } from '@/app/core/movies/movies.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -22,7 +22,6 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
         pluck('movieId'),
         filter(movieId => !!movieId),
         switchMap((movieId: string) => this.moviesService.getMovieDetails(movieId)),
-        tap(d => console.log('details', d))
       ).subscribe(movie => this.movie = movie);
   }
 

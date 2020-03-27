@@ -1,4 +1,4 @@
-import { Movie } from './../app.model';
+import { Movie } from '@/app/app.model';
 import { switchMap, map } from 'rxjs/operators';
 import { MoviesApiService } from './movies-api.service';
 import { Injectable } from '@angular/core';
@@ -16,14 +16,11 @@ export class MoviesService {
   }
 
   getMovieDetails(movieId: string) {
-    return this.moviesApiService.getMovieDetails(movieId)
-      .pipe(
-        switchMap((movie: Movie) => forkJoin({
-          details: of(movie),
-          actors: this.moviesApiService.getMovieActors(movieId),
-          directors: this.moviesApiService.getMovieDirectors(movieId),
-          writers: this.moviesApiService.getMovieWriters(movieId),
-        }),
-      ));
+    return forkJoin({
+      details: this.moviesApiService.getMovieDetails(movieId),
+      actors: this.moviesApiService.getMovieActors(movieId),
+      directors: this.moviesApiService.getMovieDirectors(movieId),
+      writers: this.moviesApiService.getMovieWriters(movieId),
+    });
   }
 }
