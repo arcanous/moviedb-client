@@ -23,4 +23,8 @@ export class MoviesService {
       writers: this.moviesApiService.getMovieWriters(movieId),
     });
   }
+
+  removeMovie(movieId: string) {
+    return this.moviesApiService.removeMovie(movieId);
+  }
 }

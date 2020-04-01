@@ -1,4 +1,6 @@
-<h2> {{ movie?.details?.name }} </h2>
+<h2> {{ movie?.details?.name }}
+  <small (click)="remove()" class="remove-entity"> Remove </small>
+</h2>
 
 <h3> Plot </h3>
 <p>

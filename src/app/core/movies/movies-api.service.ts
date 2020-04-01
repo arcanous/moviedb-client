@@ -31,4 +31,8 @@ export class MoviesApiService {
   getMovieWriters(movieId: string) {
     return this.http.get(`${environment.apiUrl}/movies/${movieId}/writers`);
   }
+
+  removeMovie(movieId: string) {
+    return this.http.delete(`${environment.apiUrl}/movies/${movieId}`);
+  }
 }
