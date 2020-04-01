@@ -1,7 +1,7 @@
 import { ActorsApiService } from './actors-api.service';
 import { Injectable } from '@angular/core';
 import { MoviesApiService } from '@/app/core/movies/movies-api.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, catchError, filter } from 'rxjs/operators';
 import { forkJoin, of } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,13 @@ export class ActorsService {
     return this.actorsApiService.getActorDetails(actorId)
       .pipe(switchMap((actor: any) => forkJoin({
         details: of(actor),
-        movies: forkJoin(...actor.movies.map(movieId => this.moviesApiService.getMovieDetails(movieId))),
+        movies: forkJoin(
+          ...actor.movies.map(movieId =>
+              this.moviesApiService.getMovieDetails(movieId)
+                .pipe(catchError(() => of({ deleted: true })))
+            )
+        ),
       })));
   }
+
 }

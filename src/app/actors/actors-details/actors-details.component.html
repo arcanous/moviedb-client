@@ -11,4 +11,7 @@
 </p>
 
 <h3> Movies </h3>
-<a class="movie" *ngFor="let movie of actor?.movies" [routerLink]="['/movies', movie.id]"> {{ movie.name }} </a>
+<ng-template ngFor let-movie [ngForOf]="actor?.movies"  >
+  <a class="movie" *ngIf="!movie.deleted" [routerLink]="['/movies', movie.id]"> {{ movie.name }} </a>
+</ng-template>
+
