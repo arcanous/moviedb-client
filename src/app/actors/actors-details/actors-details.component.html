@@ -1,1 +1,14 @@
-<p>actors-details works!</p>
+<h2> {{ actor?.details?.name }} </h2>
+
+<h3> Birth year </h3>
+<p>
+  {{ actor?.details?.birthYear }}
+</p>
+
+<h3> Nationality </h3>
+<p>
+  {{ actor?.details?.nationality }}
+</p>
+
+<h3> Movies </h3>
+<a class="movie" *ngFor="let movie of actor?.movies" [routerLink]="['/movies', movie.id]"> {{ movie.name }} </a>

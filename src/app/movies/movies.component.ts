@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class MoviesComponent implements OnInit {
 
-  movies$: any;
+  movies$: Observable<Movie[]>;
 
   constructor(private moviesService: MoviesService) { }
 

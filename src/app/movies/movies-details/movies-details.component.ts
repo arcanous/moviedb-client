@@ -2,7 +2,7 @@ import { MoviesService } from '@/app/core/movies/movies.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { pluck, filter, switchMap, tap } from 'rxjs/operators';
+import { pluck, filter, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movies-details',
