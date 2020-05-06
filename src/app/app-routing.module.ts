@@ -1,3 +1,4 @@
+import { MoviesDetailsEditComponent } from './movies/movies-details-edit/movies-details-edit.component';
 import { ActorsResolver } from './core/actors/actors.resolver';
 import { WritersDetailsComponent } from './writers/writers-details/writers-details.component';
 import { WritersHomeComponent } from './writers/writers-home/writers-home.component';
@@ -22,7 +23,9 @@ const routes: Routes = [
     component: MoviesComponent,
     children: [
       { path: '', component: MoviesHomeComponent },
+      { path: 'new', component: MoviesDetailsEditComponent },
       { path: ':movieId', component: MoviesDetailsComponent },
+      { path: ':movieId/details', component: MoviesDetailsEditComponent },
     ]
   },
   {

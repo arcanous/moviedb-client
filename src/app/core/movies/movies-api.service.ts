@@ -35,4 +35,8 @@ export class MoviesApiService {
   removeMovie(movieId: string) {
     return this.http.delete(`${environment.apiUrl}/movies/${movieId}`);
   }
+
+  addMovie(movie: Movie) {
+    return this.http.post(`${environment.apiUrl}/movies`, movie);
+  }
 }

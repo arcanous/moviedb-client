@@ -1,0 +1,23 @@
+<h2> Movie </h2>
+
+<table class="edit-details-table">
+  <tr>
+    <td> Name </td>
+    <td> <input [(ngModel)]="movie.name" type="text" /> </td>
+  </tr>
+  <tr>
+    <td> Year </td>
+    <td> <input [(ngModel)]="movie.year" type="number" /> </td>
+  </tr>
+  <tr>
+    <td> Plot </td>
+    <td> <textarea [(ngModel)]="movie.plot"></textarea> </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="add-row">
+      <button class="submit-enity" [disabled]="!movie.name || !movie.year || !movie.plot" (click)="add()"> Add </button>
+    </td>
+  </tr>
+
+</table>
+

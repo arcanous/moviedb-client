@@ -38,3 +38,70 @@ body {
     background: #c00;
   }
 }
+
+.add-entity {
+  a {
+    color: #0c0;
+
+    span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      color: #fff;
+      background: #0c0;
+      line-height: 20px;
+      text-align: center;
+    }
+
+  }
+}
+
+.edit-details-table {
+  width: 600px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333;
+
+  input, textarea {
+    width: 100%;
+    border: 2px solid #aaa;
+
+    &:active, &:focus {
+      border: 2px solid #aea;
+    }
+  }
+
+  textarea {
+    height: 100px;
+  }
+
+  .add-row {
+    text-align: right;
+
+    .submit-enity {
+      display: inline-block;
+      background: #0c0;
+      color: #fff;
+      padding: 15px;
+      width: 150x;
+      border: 2px solid #0c0;
+
+      &:hover {
+        background: #fff;
+        color: #0c0;
+        cursor: pointer;
+      }
+
+      &[disabled] {
+        background: #ccc;
+        color: #777;
+        border: 2px solid #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+}
+
+

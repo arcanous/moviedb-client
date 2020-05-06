@@ -6,6 +6,9 @@
     <div *ngFor="let movie of movies$ | async" class="movie">
       <a [routerLink]="['/movies', movie.id]" routerLinkActive="active"> {{movie.name }} </a>
     </div>
+    <div class="add-entity">
+      <a routerLink="new" routerLinkActive="active"><span>+</span> Add movie </a>
+    </div>
 
   </div>
   <div class="content">

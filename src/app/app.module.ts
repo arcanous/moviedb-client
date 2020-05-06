@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,7 @@ import { WritersHomeComponent } from './writers/writers-home/writers-home.compon
 import { WritersDetailsComponent } from './writers/writers-details/writers-details.component';
 import { DirectorsHomeComponent } from './directors/directors-home/directors-home.component';
 import { DirectorsDetailsComponent } from './directors/directors-details/directors-details.component';
+import { MoviesDetailsEditComponent } from './movies/movies-details-edit/movies-details-edit.component';
 
 @NgModule({
   declarations: [
@@ -34,12 +36,14 @@ import { DirectorsDetailsComponent } from './directors/directors-details/directo
     WritersHomeComponent,
     WritersDetailsComponent,
     DirectorsHomeComponent,
-    DirectorsDetailsComponent
+    DirectorsDetailsComponent,
+    MoviesDetailsEditComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     CommonModule,
+    FormsModule,
     AppRoutingModule,
   ],
   providers: [],

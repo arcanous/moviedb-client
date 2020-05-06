@@ -1,5 +1,4 @@
 import { Movie } from '@/app/app.model';
-import { switchMap, map } from 'rxjs/operators';
 import { MoviesApiService } from './movies-api.service';
 import { Injectable } from '@angular/core';
 import { forkJoin, of, Observable } from 'rxjs';
@@ -26,5 +25,9 @@ export class MoviesService {
 
   removeMovie(movieId: string) {
     return this.moviesApiService.removeMovie(movieId);
+  }
+
+  addMovie(movie: Movie) {
+    return this.moviesApiService.addMovie(movie);
   }
 }
