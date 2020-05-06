@@ -37,7 +37,10 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
     if (confirm(`Are you sure you want to remove ${this.movie.details.name} for the database?`)) {
       this.moviesService.removeMovie(this.movie.details.id)
         .pipe(take(1))
-        .subscribe(() => this.router.navigate(['/movies']));
+        .subscribe(() => {
+          this.moviesService.moviesUpdated$.next();
+          this.router.navigate(['/movies']);
+        });
     }
   }
 

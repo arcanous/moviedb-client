@@ -29,7 +29,10 @@ export class MoviesDetailsEditComponent implements OnInit {
   add() {
     this.moviesService.addMovie(this.movie)
       .pipe(take(1))
-      .subscribe(({ id }: Movie) => this.router.navigate(['/movies', id]));
+      .subscribe(({ id }: Movie) => {
+        this.moviesService.moviesUpdated$.next();
+        this.router.navigate(['/movies', id]);
+      });
   }
 
 }

@@ -1,12 +1,14 @@
 import { Movie } from '@/app/app.model';
 import { MoviesApiService } from './movies-api.service';
 import { Injectable } from '@angular/core';
-import { forkJoin, of, Observable } from 'rxjs';
+import { forkJoin, Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MoviesService {
+
+  moviesUpdated$ = new Subject();
 
   constructor(private moviesApiService: MoviesApiService) { }
 
