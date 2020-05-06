@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ActorsService } from '@/app/core/actors/actors.service';
 
@@ -8,12 +9,12 @@ import { ActorsService } from '@/app/core/actors/actors.service';
 })
 export class ActorsComponent implements OnInit {
 
-  actors$;
+  actors;
 
-  constructor(private actorsService: ActorsService) { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.actors$ = this.actorsService.getActors();
+    this.route.data.subscribe(({ actors }) => this.actors = actors);
   }
 
 }

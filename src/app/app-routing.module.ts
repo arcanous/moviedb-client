@@ -1,3 +1,4 @@
+import { ActorsResolver } from './core/actors/actors.resolver';
 import { WritersDetailsComponent } from './writers/writers-details/writers-details.component';
 import { WritersHomeComponent } from './writers/writers-home/writers-home.component';
 import { DirectorsDetailsComponent } from './directors/directors-details/directors-details.component';
@@ -14,7 +15,6 @@ import { MoviesComponent } from './movies/movies.component';
 import { MoviesHomeComponent } from './movies/movies-home/movies-home.component';
 import { MoviesDetailsComponent } from './movies/movies-details/movies-details.component';
 
-
 const routes: Routes = [
   { path: '', component: HomeComponent },
   {
@@ -28,6 +28,9 @@ const routes: Routes = [
   {
     path: 'actors',
     component: ActorsComponent,
+    resolve: {
+      actors: ActorsResolver,
+    },
     children: [
       { path: '', component: ActorsHomeComponent },
       { path: ':actorId', component: ActorsDetailsComponent },

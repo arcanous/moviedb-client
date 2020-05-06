@@ -3,7 +3,7 @@
 <div class="section-structure">
 
   <div class="list">
-    <div *ngFor="let actor of actors$ | async" class="actor">
+    <div *ngFor="let actor of actors" class="actor">
       <a [routerLink]="['/actors', actor.id]" routerLinkActive="active"> {{actor.name }} </a>
     </div>
 
