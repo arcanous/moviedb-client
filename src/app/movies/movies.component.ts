@@ -16,7 +16,7 @@ export class MoviesComponent implements OnInit {
   constructor(private moviesService: MoviesService) { }
 
   ngOnInit(): void {
-    this.movies$ = this.moviesService.moviesUpdated$
+    this.movies$ = this.moviesService.moviesListUpdated$
       .pipe(
         startWith(true),
         switchMap(() => this.moviesService.getMovies()),

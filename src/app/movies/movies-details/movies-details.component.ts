@@ -38,7 +38,7 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
       this.moviesService.removeMovie(this.movie.details.id)
         .pipe(take(1))
         .subscribe(() => {
-          this.moviesService.moviesUpdated$.next();
+          this.moviesService.moviesListUpdated$.next();
           this.router.navigate(['/movies']);
         });
     }

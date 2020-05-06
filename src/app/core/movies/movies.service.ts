@@ -8,7 +8,7 @@ import { forkJoin, Subject, Observable } from 'rxjs';
 })
 export class MoviesService {
 
-  moviesUpdated$ = new Subject();
+  moviesListUpdated$ = new Subject();
 
   constructor(private moviesApiService: MoviesApiService) { }
 

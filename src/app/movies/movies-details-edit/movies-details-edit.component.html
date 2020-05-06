@@ -24,6 +24,21 @@
 
         </div>
 
+        <div class="people">
+          <h3> Directors </h3>
+          <select [(ngModel)]="movie.directors" multiple>
+            <option *ngFor="let director of directors$ | async" [value]="director.id"> {{ director.name }} </option>
+          </select>
+
+        </div>
+
+        <div class="people">
+          <h3> Writers </h3>
+          <select [(ngModel)]="movie.writers" multiple>
+            <option *ngFor="let writer of writers$ | async" [value]="writer.id"> {{ writer.name }} </option>
+          </select>
+
+        </div>
 
       </div>
     </td>

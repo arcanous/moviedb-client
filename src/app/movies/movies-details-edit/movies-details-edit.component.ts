@@ -4,6 +4,8 @@ import { Movie } from '@/app/app.model';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ActorsService } from '@/app/core/actors/actors.service';
+import { DirectorsService } from '@/app/core/directors/directors.service';
+import { WritersService } from '@/app/core/writers/writers.service';
 
 @Component({
   selector: 'app-movies-details-edit',
@@ -13,6 +15,8 @@ import { ActorsService } from '@/app/core/actors/actors.service';
 export class MoviesDetailsEditComponent implements OnInit {
 
   actors$;
+  directors$;
+  writers$;
   movie: Movie = {
     id: null,
     name: '',
@@ -27,17 +31,21 @@ export class MoviesDetailsEditComponent implements OnInit {
     private moviesService: MoviesService,
     private router: Router,
     private actorsService: ActorsService,
+    private directorsService: DirectorsService,
+    private writersService: WritersService,
   ) { }
 
   ngOnInit(): void {
     this.actors$ = this.actorsService.getActors();
+    this.directors$ = this.directorsService.getDirectors();
+    this.writers$ = this.writersService.getWriters();
   }
 
   add() {
     this.moviesService.addMovie(this.movie)
       .pipe(take(1))
       .subscribe(({ id }: Movie) => {
-        this.moviesService.moviesUpdated$.next();
+        this.moviesService.moviesListUpdated$.next();
         this.router.navigate(['/movies', id]);
       });
   }
