@@ -14,6 +14,21 @@
     <td> <textarea [(ngModel)]="movie.plot"></textarea> </td>
   </tr>
   <tr>
+    <td colspan="2">
+      <div class="add-people">
+        <div class="people">
+          <h3> Actors </h3>
+          <select [(ngModel)]="movie.actors" multiple>
+            <option *ngFor="let actor of actors$ | async" [value]="actor.id"> {{ actor.name }} </option>
+          </select>
+
+        </div>
+
+
+      </div>
+    </td>
+  </tr>
+  <tr>
     <td colspan="2" class="add-row">
       <button class="submit-enity" [disabled]="!movie.name || !movie.year || !movie.plot" (click)="add()"> Add </button>
     </td>

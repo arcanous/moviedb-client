@@ -58,7 +58,7 @@ body {
 }
 
 .edit-details-table {
-  width: 600px;
+  width: 800px;
   font-size: 14px;
   line-height: 20px;
   color: #333;
@@ -74,6 +74,22 @@ body {
 
   textarea {
     height: 100px;
+  }
+
+  .add-people {
+    width: 100%;
+    display: flex;
+
+    .people {
+      width: 33.3%;
+      padding: 10px;
+
+      select {
+        width: 100%;
+        font-size: 12px;
+        min-height: 200px;
+      }
+    }
   }
 
   .add-row {

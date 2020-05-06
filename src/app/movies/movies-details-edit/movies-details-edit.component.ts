@@ -3,6 +3,7 @@ import { MoviesService } from '@/app/core/movies/movies.service';
 import { Movie } from '@/app/app.model';
 import { take } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { ActorsService } from '@/app/core/actors/actors.service';
 
 @Component({
   selector: 'app-movies-details-edit',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class MoviesDetailsEditComponent implements OnInit {
 
+  actors$;
   movie: Movie = {
     id: null,
     name: '',
@@ -21,9 +23,14 @@ export class MoviesDetailsEditComponent implements OnInit {
     writers: [],
   };
 
-  constructor(private moviesService: MoviesService, private router: Router,) { }
+  constructor(
+    private moviesService: MoviesService,
+    private router: Router,
+    private actorsService: ActorsService,
+  ) { }
 
   ngOnInit(): void {
+    this.actors$ = this.actorsService.getActors();
   }
 
   add() {
