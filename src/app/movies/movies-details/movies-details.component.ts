@@ -44,5 +44,8 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  edit() {
+    this.router.navigate(['/movies', this.movie.details.id, 'details']);
+  }
 
 }

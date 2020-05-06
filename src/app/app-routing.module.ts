@@ -23,9 +23,9 @@ const routes: Routes = [
     component: MoviesComponent,
     children: [
       { path: '', component: MoviesHomeComponent },
-      { path: 'new', component: MoviesDetailsEditComponent },
+      { path: 'new', component: MoviesDetailsEditComponent, data: { mode: 'add' } },
       { path: ':movieId', component: MoviesDetailsComponent },
-      { path: ':movieId/details', component: MoviesDetailsEditComponent },
+      { path: ':movieId/details', component: MoviesDetailsEditComponent, data: { mode: 'edit' }},
     ]
   },
   {

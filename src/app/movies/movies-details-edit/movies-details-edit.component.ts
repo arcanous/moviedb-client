@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { Movie } from '@/app/app.model';
-import { take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { take, pluck, filter, switchMap } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ActorsService } from '@/app/core/actors/actors.service';
 import { DirectorsService } from '@/app/core/directors/directors.service';
 import { WritersService } from '@/app/core/writers/writers.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-movies-details-edit',
@@ -14,6 +15,7 @@ import { WritersService } from '@/app/core/writers/writers.service';
 })
 export class MoviesDetailsEditComponent implements OnInit {
 
+  movieDetailsSubscription: Subscription;
   actors$;
   directors$;
   writers$;
@@ -33,12 +35,22 @@ export class MoviesDetailsEditComponent implements OnInit {
     private actorsService: ActorsService,
     private directorsService: DirectorsService,
     private writersService: WritersService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
     this.actors$ = this.actorsService.getActors();
     this.directors$ = this.directorsService.getDirectors();
     this.writers$ = this.writersService.getWriters();
+
+    this.movieDetailsSubscription = this.route.params
+      .pipe(
+        pluck('movieId'),
+        filter(movieId => !!movieId),
+        switchMap((movieId: string) => this.moviesService.getMovieDetails(movieId)),
+      ).subscribe(({ details }) => this.movie = details as Movie);
+
+    console.log(this.route.routeConfig);
   }
 
   add() {

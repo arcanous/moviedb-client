@@ -39,6 +39,17 @@ body {
   }
 }
 
+.edit-entity {
+  font-size: 10px;
+  color: #f80;
+  cursor: pointer;
+
+  &:hover {
+    color: #fff;
+    background: #f80;
+  }
+}
+
 .add-entity {
   a {
     color: #0c0;
