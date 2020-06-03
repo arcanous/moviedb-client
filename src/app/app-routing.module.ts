@@ -15,6 +15,8 @@ import { HomeComponent } from './home/home.component';
 import { MoviesComponent } from './movies/movies.component';
 import { MoviesHomeComponent } from './movies/movies-home/movies-home.component';
 import { MoviesDetailsComponent } from './movies/movies-details/movies-details.component';
+import { AddMovieGuard } from '@/app/movies/guards/add-movie.guard';
+import { UnsavedChangesGuard } from '@/app/movies/guards/unsaved-changes.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,9 +25,19 @@ const routes: Routes = [
     component: MoviesComponent,
     children: [
       { path: '', component: MoviesHomeComponent },
-      { path: 'new', component: MoviesDetailsEditComponent, data: { mode: 'add' } },
+      {
+        path: 'new',
+        component: MoviesDetailsEditComponent,
+        data: { mode: 'add' },
+        canActivate: [AddMovieGuard]
+      },
       { path: ':movieId', component: MoviesDetailsComponent },
-      { path: ':movieId/details', component: MoviesDetailsEditComponent, data: { mode: 'edit' }},
+      {
+        path: ':movieId/details',
+        component: MoviesDetailsEditComponent,
+        data: { mode: 'edit' },
+        canDeactivate: [UnsavedChangesGuard]
+      },
     ]
   },
   {

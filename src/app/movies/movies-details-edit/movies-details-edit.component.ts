@@ -50,7 +50,7 @@ export class MoviesDetailsEditComponent implements OnInit {
         switchMap((movieId: string) => this.moviesService.getMovieDetails(movieId)),
       ).subscribe(({ details }) => this.movie = details as Movie);
 
-    console.log(this.route.routeConfig);
+    // console.log(this.route.routeConfig);
   }
 
   add() {
