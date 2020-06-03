@@ -39,4 +39,8 @@ export class MoviesApiService {
   addMovie(movie: Movie) {
     return this.http.post(`${environment.apiUrl}/movies`, movie);
   }
+
+  updateMovie(movie: Movie) {
+    return this.http.put(`${environment.apiUrl}/movies/${movie.id}`, movie);
+  }
 }

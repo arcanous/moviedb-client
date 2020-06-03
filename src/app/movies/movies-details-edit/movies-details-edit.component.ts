@@ -28,6 +28,7 @@ export class MoviesDetailsEditComponent implements OnInit {
     directors: [],
     writers: [],
   };
+  mode;
 
   constructor(
     private moviesService: MoviesService,
@@ -50,16 +51,30 @@ export class MoviesDetailsEditComponent implements OnInit {
         switchMap((movieId: string) => this.moviesService.getMovieDetails(movieId)),
       ).subscribe(({ details }) => this.movie = details as Movie);
 
-    // console.log(this.route.routeConfig);
+    this.mode = this.route.routeConfig.data.mode;
   }
 
-  add() {
-    this.moviesService.addMovie(this.movie)
-      .pipe(take(1))
-      .subscribe(({ id }: Movie) => {
-        this.moviesService.moviesListUpdated$.next();
-        this.router.navigate(['/movies', id]);
-      });
+  save() {
+    if (this.mode === 'add') {
+      this.moviesService.addMovie(this.movie)
+        .pipe(take(1))
+        .subscribe(({ id }: Movie) => {
+          this.moviesService.moviesListUpdated$.next();
+          this.router.navigate(['/movies', id]);
+        });
+    } else if (this.mode === 'edit') {
+      this.moviesService.updateMovie(this.movie)
+        .pipe(take(1))
+        .subscribe(() => this.moviesService.moviesListUpdated$.next());
+    }
+  }
+
+  cantBeSaved() {
+    if (this.mode === 'add') {
+      return !this.movie.name || !this.movie.year || !this.movie.plot;
+    } else if (this.mode === 'edit') {
+      return false;
+    }
   }
 
 }

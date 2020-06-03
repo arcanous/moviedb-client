@@ -32,4 +32,8 @@ export class MoviesService {
   addMovie(movie: Movie) {
     return this.moviesApiService.addMovie(movie);
   }
+
+  updateMovie(movie: Movie) {
+    return this.moviesApiService.updateMovie(movie);
+  }
 }

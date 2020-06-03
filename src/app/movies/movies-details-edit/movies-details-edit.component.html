@@ -45,7 +45,7 @@
   </tr>
   <tr>
     <td colspan="2" class="add-row">
-      <button class="submit-enity" [disabled]="!movie.name || !movie.year || !movie.plot" (click)="add()"> Add </button>
+      <button class="submit-enity" [disabled]="cantBeSaved()" (click)="save()"> {{ mode === 'add' ? 'Add' : 'Update' }} </button>
     </td>
   </tr>
 
