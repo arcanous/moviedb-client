@@ -66,6 +66,7 @@ export class MoviesDetailsEditComponent implements OnInit {
         .pipe(take(1))
         .subscribe(({ id }: Movie) => {
           this.moviesService.moviesListUpdated$.next();
+          this.unsavedChangesService.hasUnsavedChanges = false;
           this.router.navigate(['/movies', id]);
         });
     } else if (this.mode === 'edit') {
@@ -73,6 +74,7 @@ export class MoviesDetailsEditComponent implements OnInit {
         .pipe(take(1))
         .subscribe(({ id }: Movie) => {
           this.moviesService.moviesListUpdated$.next();
+          this.unsavedChangesService.hasUnsavedChanges = false;
           this.router.navigate(['/movies', id]);
         });
     }
