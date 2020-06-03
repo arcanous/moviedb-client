@@ -29,6 +29,7 @@ export class MoviesDetailsEditComponent implements OnInit {
     writers: [],
   };
   mode;
+  movieFromDb;
 
   constructor(
     private moviesService: MoviesService,
@@ -49,7 +50,10 @@ export class MoviesDetailsEditComponent implements OnInit {
         pluck('movieId'),
         filter(movieId => !!movieId),
         switchMap((movieId: string) => this.moviesService.getMovieDetails(movieId)),
-      ).subscribe(({ details }) => this.movie = details as Movie);
+      ).subscribe(({ details }) => {
+        this.movie = details as Movie;
+        this.movieFromDb = JSON.parse(JSON.stringify(details));
+      });
 
     this.mode = this.route.routeConfig.data.mode;
   }
@@ -65,7 +69,10 @@ export class MoviesDetailsEditComponent implements OnInit {
     } else if (this.mode === 'edit') {
       this.moviesService.updateMovie(this.movie)
         .pipe(take(1))
-        .subscribe(() => this.moviesService.moviesListUpdated$.next());
+        .subscribe(({ id }: Movie) => {
+          this.moviesService.moviesListUpdated$.next();
+          this.router.navigate(['/movies', id]);
+        });
     }
   }
 
@@ -73,7 +80,7 @@ export class MoviesDetailsEditComponent implements OnInit {
     if (this.mode === 'add') {
       return !this.movie.name || !this.movie.year || !this.movie.plot;
     } else if (this.mode === 'edit') {
-      return false;
+      return JSON.stringify(this.movie) === JSON.stringify(this.movieFromDb);
     }
   }
 
