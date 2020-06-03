@@ -1,3 +1,4 @@
+import { UnsavedChangesService } from './../../core/unsaved-changes/unsaved-changes.service';
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { Movie } from '@/app/app.model';
@@ -38,6 +39,7 @@ export class MoviesDetailsEditComponent implements OnInit {
     private directorsService: DirectorsService,
     private writersService: WritersService,
     private route: ActivatedRoute,
+    private unsavedChangesService: UnsavedChangesService,
   ) { }
 
   ngOnInit(): void {
@@ -77,11 +79,17 @@ export class MoviesDetailsEditComponent implements OnInit {
   }
 
   cantBeSaved() {
+    let cantBeSaved;
+
     if (this.mode === 'add') {
-      return !this.movie.name || !this.movie.year || !this.movie.plot;
+      cantBeSaved = !this.movie.name || !this.movie.year || !this.movie.plot;
     } else if (this.mode === 'edit') {
-      return JSON.stringify(this.movie) === JSON.stringify(this.movieFromDb);
+      cantBeSaved = JSON.stringify(this.movie) === JSON.stringify(this.movieFromDb);
     }
+
+    this.unsavedChangesService.hasUnsavedChanges = !cantBeSaved;
+
+    return cantBeSaved;
   }
 
 }
