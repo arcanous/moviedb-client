@@ -29,7 +29,8 @@ const routes: Routes = [
         path: 'new',
         component: MoviesDetailsEditComponent,
         data: { mode: 'add' },
-        canActivate: [AddMovieGuard]
+        canActivate: [AddMovieGuard],
+        canDeactivate: [UnsavedChangesGuard]
       },
       { path: ':movieId', component: MoviesDetailsComponent },
       {

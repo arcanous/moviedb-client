@@ -83,11 +83,15 @@ export class MoviesDetailsEditComponent implements OnInit {
 
     if (this.mode === 'add') {
       cantBeSaved = !this.movie.name || !this.movie.year || !this.movie.plot;
+      this.unsavedChangesService.hasUnsavedChanges = !!this.movie.name
+        || !!this.movie.year
+        || !!this.movie.plot
+        || ['actors', 'directors', 'writers'].some(persons => this.movie[persons].length > 0);
+
     } else if (this.mode === 'edit') {
       cantBeSaved = JSON.stringify(this.movie) === JSON.stringify(this.movieFromDb);
+      this.unsavedChangesService.hasUnsavedChanges = !cantBeSaved;
     }
-
-    this.unsavedChangesService.hasUnsavedChanges = !cantBeSaved;
 
     return cantBeSaved;
   }
