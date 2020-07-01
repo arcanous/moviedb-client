@@ -1,8 +1,10 @@
+import { Store } from '@ngxs/store';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { pluck, filter, switchMap, take } from 'rxjs/operators';
+import { RemoveMovie } from '@/app/core/movies/movies.actions';
 
 @Component({
   selector: 'app-movies-details',
@@ -18,6 +20,7 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private moviesService: MoviesService,
     private router: Router,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
@@ -35,12 +38,9 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
 
   remove() {
     if (confirm(`Are you sure you want to remove ${this.movie.details.name} for the database?`)) {
-      this.moviesService.removeMovie(this.movie.details.id)
+      this.store.dispatch(new RemoveMovie(this.movie.details.id))
         .pipe(take(1))
-        .subscribe(() => {
-          this.moviesService.moviesListUpdated$.next();
-          this.router.navigate(['/movies']);
-        });
+        .subscribe(() => this.router.navigate(['/movies']));
     }
   }
 

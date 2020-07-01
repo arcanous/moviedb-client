@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { GetMovies, AddMovie, UpdateMovie } from '@/app/core/movies/movies.actions';
+import { GetMovies, AddMovie, UpdateMovie, RemoveMovie } from '@/app/core/movies/movies.actions';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { tap } from 'rxjs/operators';
 import { Movie } from '@/app/app.model';
@@ -56,6 +56,16 @@ export class AppState {
       const existingMovies = ctx.getState().movies;
       ctx.patchState({
         movies: existingMovies.map(m => m.id === updatedMovie.id ? updatedMovie : m),
+      });
+    }));
+  }
+
+  @Action(RemoveMovie)
+  removeMovie(ctx: StateContext<AppStateModel>, { movieId }: RemoveMovie) {
+    return this.moviesService.removeMovie(movieId).pipe(tap(() => {
+      const existingMovies = ctx.getState().movies;
+      ctx.patchState({
+        movies: existingMovies.filter(m => m.id !== movieId),
       });
     }));
   }

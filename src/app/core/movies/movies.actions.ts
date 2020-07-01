@@ -13,3 +13,8 @@ export class UpdateMovie {
   static readonly type = '[AppState] Update Movie';
   constructor(public movie: Movie) {}
 }
+
+export class RemoveMovie {
+  static readonly type = '[AppState] Remove Movie';
+  constructor(public movieId: string) {}
+}
