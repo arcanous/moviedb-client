@@ -9,7 +9,7 @@ import { ActorsService } from '@/app/core/actors/actors.service';
 import { DirectorsService } from '@/app/core/directors/directors.service';
 import { WritersService } from '@/app/core/writers/writers.service';
 import { Subscription } from 'rxjs';
-import { AddMovie } from '@/app/core/movies/movies.actions';
+import { AddMovie, UpdateMovie } from '@/app/core/movies/movies.actions';
 import { last } from 'lodash';
 
 @Component({
@@ -66,15 +66,13 @@ export class MoviesDetailsEditComponent implements OnInit {
 
   save() {
     if (this.mode === 'add') {
-      this.store.dispatch(new AddMovie(this.movie)).subscribe(({ app: { movies }}) => this.router.navigate(['/movies', last(movies).id]));
-    } else if (this.mode === 'edit') {
-      this.moviesService.updateMovie(this.movie)
+      this.store.dispatch(new AddMovie(this.movie))
         .pipe(take(1))
-        .subscribe(({ id }: Movie) => {
-          this.moviesService.moviesListUpdated$.next();
-          this.unsavedChangesService.hasUnsavedChanges = false;
-          this.router.navigate(['/movies', id]);
-        });
+        .subscribe(({ app: { movies }}) => this.router.navigate(['/movies', last(movies).id]));
+    } else if (this.mode === 'edit') {
+      this.store.dispatch(new UpdateMovie(this.movie))
+        .pipe(take(1))
+        .subscribe(() => this.router.navigate(['/movies', this.movie.id]));
     }
   }
 
