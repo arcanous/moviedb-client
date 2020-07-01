@@ -3,7 +3,7 @@ import { MoviesService } from '@/app/core/movies/movies.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { pluck, filter, switchMap, take } from 'rxjs/operators';
+import { pluck, filter, switchMap } from 'rxjs/operators';
 import { RemoveMovie } from '@/app/core/movies/movies.actions';
 
 @Component({
@@ -38,9 +38,7 @@ export class MoviesDetailsComponent implements OnInit, OnDestroy {
 
   remove() {
     if (confirm(`Are you sure you want to remove ${this.movie.details.name} for the database?`)) {
-      this.store.dispatch(new RemoveMovie(this.movie.details.id))
-        .pipe(take(1))
-        .subscribe(() => this.router.navigate(['/movies']));
+      this.store.dispatch(new RemoveMovie(this.movie.details.id));
     }
   }
 

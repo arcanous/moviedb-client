@@ -3,14 +3,13 @@ import { UnsavedChangesService } from './../../core/unsaved-changes/unsaved-chan
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { Movie } from '@/app/app.model';
-import { take, pluck, filter, switchMap } from 'rxjs/operators';
+import { pluck, filter, switchMap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ActorsService } from '@/app/core/actors/actors.service';
 import { DirectorsService } from '@/app/core/directors/directors.service';
 import { WritersService } from '@/app/core/writers/writers.service';
 import { Subscription } from 'rxjs';
 import { AddMovie, UpdateMovie } from '@/app/core/movies/movies.actions';
-import { last } from 'lodash';
 
 @Component({
   selector: 'app-movies-details-edit',
@@ -65,15 +64,7 @@ export class MoviesDetailsEditComponent implements OnInit {
   }
 
   save() {
-    if (this.mode === 'add') {
-      this.store.dispatch(new AddMovie(this.movie))
-        .pipe(take(1))
-        .subscribe(({ app: { movies }}) => this.router.navigate(['/movies', last(movies).id]));
-    } else if (this.mode === 'edit') {
-      this.store.dispatch(new UpdateMovie(this.movie))
-        .pipe(take(1))
-        .subscribe(() => this.router.navigate(['/movies', this.movie.id]));
-    }
+    this.store.dispatch(this.mode === 'add' ? new AddMovie(this.movie) : new UpdateMovie(this.movie));
   }
 
   cantBeSaved() {

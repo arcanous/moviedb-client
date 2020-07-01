@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
+import { Navigate } from '@ngxs/router-plugin';
 import { GetMovies, AddMovie, UpdateMovie, RemoveMovie } from '@/app/core/movies/movies.actions';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { tap } from 'rxjs/operators';
@@ -47,6 +48,8 @@ export class AppState {
           addedMovie,
         ]
       });
+
+      ctx.dispatch(new Navigate(['/movies', addedMovie.id]));
     }));
   }
 
@@ -57,6 +60,8 @@ export class AppState {
       ctx.patchState({
         movies: existingMovies.map(m => m.id === updatedMovie.id ? updatedMovie : m),
       });
+
+      ctx.dispatch(new Navigate(['/movies', updatedMovie.id]));
     }));
   }
 
@@ -67,6 +72,8 @@ export class AppState {
       ctx.patchState({
         movies: existingMovies.filter(m => m.id !== movieId),
       });
+
+      ctx.dispatch(new Navigate(['/movies']));
     }));
   }
 }
