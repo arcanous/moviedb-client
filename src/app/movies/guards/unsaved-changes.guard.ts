@@ -15,11 +15,11 @@ export class UnsavedChangesGuard implements CanDeactivate<unknown> {
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    if (this.unsavedChanges.hasUnsavedChanges) {
-      return confirm('You have unsaved changes. Are you sure you want to navigate away?');
-    } else {
+    // if (this.unsavedChanges.hasUnsavedChanges) {
+    //   return confirm('You have unsaved changes. Are you sure you want to navigate away?');
+    // } else {
       return true;
-    }
+    // }
   }
 
 }

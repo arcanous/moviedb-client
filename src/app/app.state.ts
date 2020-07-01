@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { GetMovies } from '@/app/core/movies/movies.actions';
+import { GetMovies, AddMovie } from '@/app/core/movies/movies.actions';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { tap } from 'rxjs/operators';
+import { Movie } from '@/app/app.model';
 
 export interface AppStateModel {
   movies: any[];
@@ -12,7 +13,7 @@ export interface AppStateModel {
 }
 
 @State<AppStateModel>({
-  name: 'animals',
+  name: 'app',
   defaults: {
     movies: [],
     actors: [],
@@ -27,10 +28,25 @@ export class AppState {
   @Selector() static writers(state: AppStateModel) { return state.writers; }
   @Selector() static directors(state: AppStateModel) { return state.directors; }
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(
+    private moviesService: MoviesService
+  ) {}
 
   @Action(GetMovies)
   getMovies({ patchState }: StateContext<AppStateModel>) {
     return this.moviesService.getMovies().pipe(tap(movies => patchState({ movies })));
+  }
+
+  @Action(AddMovie)
+  addMovie(ctx: StateContext<AppStateModel>, { movie }: AddMovie) {
+    return this.moviesService.addMovie(movie).pipe(tap((addedMovie: Movie) => {
+      const existingMovies = ctx.getState().movies;
+      ctx.patchState({
+        movies: [
+          ...existingMovies,
+          addedMovie,
+        ]
+      });
+    }));
   }
 }
