@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgxsModule } from '@ngxs/store';
 
+import { AppState } from './app.state';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MoviesComponent } from './movies/movies.component';
@@ -20,6 +22,7 @@ import { WritersDetailsComponent } from './writers/writers-details/writers-detai
 import { DirectorsHomeComponent } from './directors/directors-home/directors-home.component';
 import { DirectorsDetailsComponent } from './directors/directors-details/directors-details.component';
 import { MoviesDetailsEditComponent } from './movies/movies-details-edit/movies-details-edit.component';
+import { environment } from '@/environments/environment';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { MoviesDetailsEditComponent } from './movies/movies-details-edit/movies-
     CommonModule,
     FormsModule,
     AppRoutingModule,
+    NgxsModule.forRoot([AppState], {
+      developmentMode: !environment.production
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]
