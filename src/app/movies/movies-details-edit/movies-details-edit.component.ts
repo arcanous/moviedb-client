@@ -1,15 +1,15 @@
 import { Store } from '@ngxs/store';
-import { UnsavedChangesService } from './../../core/unsaved-changes/unsaved-changes.service';
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { Movie } from '@/app/app.model';
 import { pluck, filter, switchMap } from 'rxjs/operators';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ActorsService } from '@/app/core/actors/actors.service';
 import { DirectorsService } from '@/app/core/directors/directors.service';
 import { WritersService } from '@/app/core/writers/writers.service';
 import { Subscription } from 'rxjs';
 import { AddMovie, UpdateMovie } from '@/app/core/movies/movies.actions';
+import { SetUnsavedChanges } from '@/app/app.actions';
 
 @Component({
   selector: 'app-movies-details-edit',
@@ -33,15 +33,14 @@ export class MoviesDetailsEditComponent implements OnInit {
   };
   mode;
   movieFromDb;
+  hadUnsavedChanges = false;
 
   constructor(
     private moviesService: MoviesService,
-    private router: Router,
     private actorsService: ActorsService,
     private directorsService: DirectorsService,
     private writersService: WritersService,
     private route: ActivatedRoute,
-    private unsavedChangesService: UnsavedChangesService,
     private store: Store,
   ) { }
 
@@ -72,14 +71,24 @@ export class MoviesDetailsEditComponent implements OnInit {
 
     if (this.mode === 'add') {
       cantBeSaved = !this.movie.name || !this.movie.year || !this.movie.plot;
-      this.unsavedChangesService.hasUnsavedChanges = !!this.movie.name
+      const hasUC = !!this.movie.name
         || !!this.movie.year
         || !!this.movie.plot
         || ['actors', 'directors', 'writers'].some(persons => this.movie[persons].length > 0);
 
+      if (hasUC !== this.hadUnsavedChanges) {
+        this.store.dispatch(new SetUnsavedChanges(hasUC));
+        this.hadUnsavedChanges = hasUC;
+      }
+
     } else if (this.mode === 'edit') {
       cantBeSaved = JSON.stringify(this.movie) === JSON.stringify(this.movieFromDb);
-      this.unsavedChangesService.hasUnsavedChanges = !cantBeSaved;
+      const hasUC = !cantBeSaved;
+
+      if (hasUC !== this.hadUnsavedChanges) {
+        this.store.dispatch(new SetUnsavedChanges(hasUC));
+        this.hadUnsavedChanges = hasUC;
+      }
     }
 
     return cantBeSaved;

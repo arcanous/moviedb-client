@@ -5,12 +5,14 @@ import { GetMovies, AddMovie, UpdateMovie, RemoveMovie } from '@/app/core/movies
 import { MoviesService } from '@/app/core/movies/movies.service';
 import { tap } from 'rxjs/operators';
 import { Movie } from '@/app/app.model';
+import { SetUnsavedChanges } from './app.actions';
 
 export interface AppStateModel {
   movies: any[];
   actors: any[];
   writers: any[];
   directors: any[];
+  unsavedChanges: boolean;
 }
 
 @State<AppStateModel>({
@@ -20,6 +22,7 @@ export interface AppStateModel {
     actors: [],
     writers: [],
     directors: [],
+    unsavedChanges: false,
   }
 })
 @Injectable()
@@ -48,7 +51,7 @@ export class AppState {
           addedMovie,
         ]
       });
-
+      ctx.dispatch(new SetUnsavedChanges(false));
       ctx.dispatch(new Navigate(['/movies', addedMovie.id]));
     }));
   }
@@ -61,6 +64,7 @@ export class AppState {
         movies: existingMovies.map(m => m.id === updatedMovie.id ? updatedMovie : m),
       });
 
+      ctx.dispatch(new SetUnsavedChanges(false));
       ctx.dispatch(new Navigate(['/movies', updatedMovie.id]));
     }));
   }
@@ -75,5 +79,10 @@ export class AppState {
 
       ctx.dispatch(new Navigate(['/movies']));
     }));
+  }
+
+  @Action(SetUnsavedChanges)
+  setUnsavedChanges({ patchState }: StateContext<AppStateModel>, { unsavedChanges }: SetUnsavedChanges) {
+    return patchState({ unsavedChanges });
   }
 }
