@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
 import { AppState } from './app.state';
 import { AppRoutingModule } from './app-routing.module';
@@ -51,6 +52,7 @@ import { environment } from '@/environments/environment';
     NgxsModule.forRoot([AppState], {
       developmentMode: !environment.production
     }),
+    NgxsLoggerPluginModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

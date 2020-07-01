@@ -1,8 +1,9 @@
+import { GetMovies } from './../core/movies/movies.actions';
 import { Movie } from '@/app/app.model';
-import { MoviesService } from '@/app/core/movies/movies.service';
+import { Select, Store } from '@ngxs/store';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { AppState } from '@/app/app.state';
 
 @Component({
   selector: 'app-movies',
@@ -11,15 +12,11 @@ import { startWith, switchMap } from 'rxjs/operators';
 })
 export class MoviesComponent implements OnInit {
 
-  movies$: Observable<Movie[]>;
+  @Select(AppState.movies) movies$: Observable<Movie[]>;
 
-  constructor(private moviesService: MoviesService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.movies$ = this.moviesService.moviesListUpdated$
-      .pipe(
-        startWith(true),
-        switchMap(() => this.moviesService.getMovies()),
-      );
+    this.store.dispatch(new GetMovies());
   }
 }
