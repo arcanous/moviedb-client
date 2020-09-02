@@ -10,6 +10,7 @@ import { WritersService } from '@/app/core/writers/writers.service';
 import { Subscription } from 'rxjs';
 import { AddMovie, UpdateMovie } from '@/app/core/movies/movies.actions';
 import { SetUnsavedChanges } from '@/app/app.actions';
+import { get } from 'lodash';
 
 @Component({
   selector: 'app-movies-details-edit',
@@ -59,7 +60,7 @@ export class MoviesDetailsEditComponent implements OnInit {
         this.movieFromDb = JSON.parse(JSON.stringify(details));
       });
 
-    this.mode = this.route.routeConfig.data.mode;
+    this.mode = get(this.route, 'routeConfig.data.mode', 'edit');
   }
 
   save() {
