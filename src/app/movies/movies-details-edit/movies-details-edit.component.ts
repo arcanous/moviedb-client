@@ -10,7 +10,7 @@ import { WritersService } from '@/app/core/writers/writers.service';
 import { Subscription } from 'rxjs';
 import { AddMovie, UpdateMovie } from '@/app/core/movies/movies.actions';
 import { SetUnsavedChanges } from '@/app/app.actions';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 
 @Component({
   selector: 'app-movies-details-edit',
