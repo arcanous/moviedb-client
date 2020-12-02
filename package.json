@@ -22,7 +22,7 @@
     "@ngxs/logger-plugin": "^3.6.2-dev.master-eaa5d86",
     "@ngxs/router-plugin": "^3.6.2",
     "@ngxs/store": "^3.6.2",
-    "rxjs": "~6.5.5",
+    "rxjs": "~6.6.3",
     "ts-mockito": "^2.6.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
