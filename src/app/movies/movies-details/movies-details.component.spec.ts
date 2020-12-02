@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { instance, mock } from 'ts-mockito';
 import { Store } from '@ngxs/store';
@@ -13,7 +13,7 @@ describe('MoviesDetailsComponent', () => {
   let component: MoviesDetailsComponent;
   let fixture: ComponentFixture<MoviesDetailsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MoviesDetailsComponent ],
       imports: [
